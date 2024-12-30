@@ -31,10 +31,25 @@ colnames(df) <- new_colnames
 df$time_position <- as.numeric(df$time_position)
 df$last_contact <- as.numeric(df$last_contact)
 
-# Opret nye kolonner med konverterede datoer
+# Opret nye kolonner med konverterede datoer <- 
 df$time_position_date <- as.POSIXct(df$time_position, origin = "1970-01-01", tz = "UTC")
 df$last_contact_date <- as.POSIXct(df$last_contact, origin = "1970-01-01", tz = "UTC")
 
 # Tjek resultaterne
 head(df)
+
+
+# Connecting to MySQL database, currently just localhost for testing
+library(RMariaDB)
+SQLpassword <- Sys.getenv("SQLpassword")
+con <- dbConnect(MariaDB(),
+                 dbname = "FlightTrack",
+                 host = "localhost",
+                 port = "3306",
+                 user = "root",
+                 password = SQLpassword)
+dbWriteTable(con,"GazaTest",df)
+
+
+
 
