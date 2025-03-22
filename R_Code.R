@@ -10,6 +10,8 @@ gaza_bbox <- list(
   maxLongitude = 35.5739235
 )
 
+current_time <- post
+url_1hour <- ""
 
 
 readRenviron(".Renviron")
