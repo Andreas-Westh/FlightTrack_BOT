@@ -18,15 +18,16 @@ cat("Connected to the database successfully.\n")
 
 # Fetch flight data
 url <- "https://opensky-network.org/api/states/all"
-north_korea_bbox <- list(
-  lamin = 37.9,  # Tighter southern latitude
-  lamax = 42.6,  # Tighter northern latitude
-  lomin = 125.0, # Tighter western longitude
-  lomax = 130.5  # Tighter eastern longitude
+palestine_bbox <- list(
+  lamin = 31.2,  # Southern latitude (Gaza)
+  lamax = 32.6,  # Northern latitude (northern West Bank)
+  lomin = 34.2,  # Western longitude (Mediterranean coast)
+  lomax = 35.6   # Eastern longitude (Jordan Valley)
 )
 
+
 # Fetch the data
-response <- GET(url, query = north_korea_bbox, authenticate(user = user, password = password))
+response <- GET(url, query = palestine_bbox, authenticate(user = user, password = password))
 data <- fromJSON(content(response, as = "text"), flatten = TRUE)
 
 if (is.null(data$states)) {
