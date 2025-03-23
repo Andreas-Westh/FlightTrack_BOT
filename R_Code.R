@@ -10,8 +10,8 @@ gaza_bbox <- list(
   lomax = 35.5739235
 )
 
-current_time <- post
-url_1hour <- ""
+#current_time <- post
+#url_1hour <- ""
 
 
 readRenviron(".Renviron")
@@ -39,7 +39,7 @@ df$last_contact_date <- as.POSIXct(df$last_contact, origin = "1970-01-01", tz = 
 df$scrapetime <- Sys.time()
 
 # Tjek resultaterne
-head(df)
+#head(df)
 
 
 # Connecting to MySQL database, currently just localhost for testing
@@ -55,7 +55,7 @@ con <- dbConnect(MariaDB(),
                  user = user,
                  password = SQLpassword)
 dbWriteTable(con,"GazaTest",df, append = T)
-
+print("Done.")
 
 
 
