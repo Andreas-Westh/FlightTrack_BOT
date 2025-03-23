@@ -4,10 +4,10 @@ library(jsonlite)
 url <- "https://opensky-network.org/api/states/all"
 
 gaza_bbox <- list(
-  minLatitude = 31.2201289,
-  maxLatitude = 32.5521479,
-  minLongitude = 34.0689732,
-  maxLongitude = 35.5739235
+  lamin = 31.2201289,
+  lamax = 32.5521479,
+  lomin = 34.0689732,
+  lomax = 35.5739235
 )
 
 current_time <- post
@@ -36,6 +36,7 @@ df$last_contact <- as.numeric(df$last_contact)
 # Opret nye kolonner med konverterede datoer <- 
 df$time_position_date <- as.POSIXct(df$time_position, origin = "1970-01-01", tz = "UTC")
 df$last_contact_date <- as.POSIXct(df$last_contact, origin = "1970-01-01", tz = "UTC")
+df$scrapetime <- Sys.time()
 
 # Tjek resultaterne
 head(df)
@@ -44,13 +45,16 @@ head(df)
 # Connecting to MySQL database, currently just localhost for testing
 library(RMariaDB)
 SQLpassword <- Sys.getenv("SQLpassword")
+host <- Sys.getenv("host")
+port <- Sys.getenv("port")
+user <- Sys.getenv("user")
 con <- dbConnect(MariaDB(),
-                 dbname = "FlightTrack",
-                 host = "localhost",
-                 port = "3306",
-                 user = "root",
+                 dbname = "flight_track",
+                 host = host,
+                 port = port,
+                 user = user,
                  password = SQLpassword)
-dbWriteTable(con,"GazaTest",df)
+dbWriteTable(con,"GazaTest",df, append = T)
 
 
 
