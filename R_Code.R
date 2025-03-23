@@ -55,7 +55,7 @@ con <- dbConnect(MariaDB(),
                  user = user,
                  password = SQLpassword)
 dbWriteTable(con,"GazaTest",df, append = T)
-print("Done.)
+print("Done.")
 dbDisconnect()
 
 
